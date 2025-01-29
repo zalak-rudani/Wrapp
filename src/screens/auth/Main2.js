@@ -5,17 +5,18 @@ import {
   Pressable,
   ScrollView,
   StyleSheet,
+  TextInput,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
 import React, {useState} from 'react';
 import {colors} from '../../helpers/ColorConstant';
-import {TextInput} from 'react-native-paper';
+// import {TextInput} from 'react-native-paper';
 import ButtonComp from '../../components/common/ButtonComp';
 import FillLine from '../../components/common/FillLine';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
-
+import ModalComp from '../../components/common/ModalComp';
 import {Modal} from 'react-native-paper';
 import {Item} from 'react-native-paper/lib/typescript/components/List/List';
 
@@ -23,6 +24,7 @@ const Main2 = () => {
   const [images, setImages] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [modal2Visible, setModal2Visible] = useState(false);
+  const [genderModalVisible, setGenderModalVisible] = useState(false);
   const [fName, setFName] = useState('');
   const [lName, setLName] = useState('');
   const [gender, setGender] = useState('');
@@ -30,6 +32,8 @@ const Main2 = () => {
   const [location, setLocation] = useState('');
   const [insta, setInsta] = useState('');
   const [selectedData, setSelectedData] = useState('');
+
+  const arr = ['take photo', 'select from gallery'];
 
   const deleteConformation = item =>
     Alert.alert('Deleting Image', 'Are you sure?', [
@@ -175,6 +179,17 @@ const Main2 = () => {
         ) : null}
       </ScrollView>
 
+      <TextInput
+        style={styles.textInput}
+        placeholder="First name *"></TextInput>
+      <TextInput style={styles.textInput} placeholder="Last name *"></TextInput>
+      <TextInput style={styles.textInput} placeholder="Gender *"></TextInput>
+      <TextInput
+        style={styles.textInput}
+        placeholder="Date of Birth *"></TextInput>
+      <TextInput style={styles.textInput} placeholder="Location *"></TextInput>
+      <TextInput style={styles.textInput} placeholder="Instagram"></TextInput>
+
       {/* <ScrollView>
         <TextInput
           style={styles.textInput}
@@ -201,37 +216,16 @@ const Main2 = () => {
           label={'Instagram'}
           onChangeText={text => setInsta(text)}></TextInput>
       </ScrollView> */}
-      <ButtonComp text={'Continue'} customStyle={styles.Button} />
+      <ButtonComp
+        onPress={() => setGenderModalVisible(true)}
+        text={'Continue'}
+        customStyle={styles.Button}
+      />
 
       <Modal animationType="slide" transparent={true} visible={modalVisible}>
         <Pressable onPress={() => setModalVisible(false)}>
           <View style={styles.modalView}>
-            <ButtonComp
-              onPress={() => {
-                handleCameraLaunch();
-                setModalVisible(false);
-              }}
-              customStyle={{
-                ...styles.Button,
-                marginTop: 32,
-                marginBottom: 16,
-                backgroundColor: colors.white,
-                borderWidth: 1,
-              }}
-              text={'Take photo'}
-            />
-            <ButtonComp
-              onPress={() => {
-                openImagePicker();
-                setModalVisible(false);
-              }}
-              customStyle={{
-                ...styles.Button,
-                backgroundColor: colors.white,
-                borderWidth: 1,
-              }}
-              text={'Choose from library'}
-            />
+            <ModalComp data={arr} />
           </View>
         </Pressable>
       </Modal>
@@ -279,6 +273,15 @@ const Main2 = () => {
           </View>
         </Pressable>
       </Modal>
+
+      <Modal
+        animationType="slide"
+        visible={genderModalVisible}
+        transparent={true}>
+        <Pressable onPress={() => setGenderModalVisible(false)}>
+          <View style={{backgroundColor: 'pink', flex: 1}}></View>
+        </Pressable>
+      </Modal>
     </View>
   );
 };
@@ -298,14 +301,22 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
 
+  // textInput: {
+  //   // marginBottom: 40,
+  //   marginLeft: 32,
+  //   marginRight: 32,
+  //   paddingBottom: 6,
+  //   borderBottomWidth: 1,
+  //   flex: 1,
+  //   backgroundColor: colors.white,
+  // },
+
   textInput: {
-    // marginBottom: 40,
+    marginBottom: 40,
     marginLeft: 32,
     marginRight: 32,
     paddingBottom: 6,
     borderBottomWidth: 1,
-    flex: 1,
-    backgroundColor: colors.white,
   },
 
   Button: {
@@ -367,3 +378,38 @@ const styles = StyleSheet.create({
     width: 311,
   },
 });
+
+{
+  /* <Modal animationType="slide" transparent={true} visible={modalVisible}>
+        <Pressable onPress={() => setModalVisible(false)}>
+          <View style={styles.modalView}>
+            <ButtonComp
+              onPress={() => {
+                handleCameraLaunch();
+                setModalVisible(false);
+              }}
+              customStyle={{
+                ...styles.Button,
+                marginTop: 32,
+                marginBottom: 16,
+                backgroundColor: colors.white,
+                borderWidth: 1,
+              }}
+              text={'Take photo'}
+            />
+            <ButtonComp
+              onPress={() => {
+                openImagePicker();
+                setModalVisible(false);
+              }}
+              customStyle={{
+                ...styles.Button,
+                backgroundColor: colors.white,
+                borderWidth: 1,
+              }}
+              text={'Choose from library'}
+            />
+          </View>
+        </Pressable>
+      </Modal> */
+}

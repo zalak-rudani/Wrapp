@@ -1,40 +1,40 @@
-import {StyleSheet, Text, View, Modal, Pressable} from 'react-native';
+import {FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {colors} from '../../helpers/ColorConstant';
 import React from 'react';
-import ButtonComp from './ButtonComp';
 
-const ModalComp = () => {
+const ModalComp = ({data, onPress}) => {
   return (
-    <View>
-      <Modal animationType="slide" transparent={true} visible={modalVisible}>
-        <Pressable onPress={() => setModalVisible(false)}>
-          <View style={styles.modalView}>
-            <ButtonComp
-              onPress={onPress}
-              customStyle={{
-                ...styles.Button,
-                marginTop: 32,
-                marginBottom: 16,
-                backgroundColor: colors.white,
-                borderWidth: 1,
-              }}
-              text={'Take photo'}
-            />
-            <ButtonComp
-              onPress={onPress}
-              customStyle={{
-                ...styles.Button,
-                backgroundColor: colors.white,
-                borderWidth: 1,
-              }}
-              text={'Choose from library'}
-            />
-          </View>
-        </Pressable>
-      </Modal>
+    <View style={styles.main}>
+      <FlatList
+        data={data}
+        renderItem={({item}) => {
+          <TouchableOpacity onPress={onPress} style={styles.button}>
+            <Text style={styles.text}>{item}</Text>
+          </TouchableOpacity>;
+        }}
+      />
     </View>
   );
 };
 
 export default ModalComp;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  main: {
+    flex: 1,
+    backgroundColor: colors.white,
+  },
+
+  button: {
+    width: 311,
+    height: 64,
+    borderWidth: 1,
+    borderRadius: 50,
+    backgroundColor: colors.white,
+  },
+
+  text: {
+    fontSize: 15,
+    fontWeight: '700',
+  },
+});
