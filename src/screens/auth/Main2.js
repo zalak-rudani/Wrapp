@@ -18,7 +18,11 @@ import FillLine from '../../components/common/FillLine';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import ModalComp from '../../components/common/ModalComp';
 import {Modal} from 'react-native-paper';
+import constantImages from '../constants/constantImages';
 import {Item} from 'react-native-paper/lib/typescript/components/List/List';
+import {Calendar} from 'react-native-calendars';
+import Trial from './Trial';
+import Day from 'react-native-calendars/src/calendar/day';
 
 const Main2 = () => {
   const [images, setImages] = useState([]);
@@ -32,6 +36,9 @@ const Main2 = () => {
   const [location, setLocation] = useState('');
   const [insta, setInsta] = useState('');
   const [selectedData, setSelectedData] = useState('');
+  const [showCalendar, setShowCalendar] = useState(false);
+
+  console.log('**********', dob);
 
   const arr = ['take photo', 'select from gallery'];
 
@@ -148,7 +155,7 @@ const Main2 = () => {
                 onPress={() => {
                   setModal2Visible(true);
                   setModalVisible(false);
-                  console.log('********************', item);
+                  console.log('**************', item);
                   setSelectedData(item);
                 }}>
                 <Image
@@ -183,8 +190,28 @@ const Main2 = () => {
         style={styles.textInput}
         placeholder="First name *"></TextInput>
       <TextInput style={styles.textInput} placeholder="Last name *"></TextInput>
-      <TextInput style={styles.textInput} placeholder="Gender *"></TextInput>
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          marginBottom: 40,
+          marginLeft: 32,
+          marginRight: 32,
+          paddingBottom: 6,
+          borderBottomWidth: 1,
+        }}>
+        <TextInput placeholder="Gender *"></TextInput>
+        <TouchableOpacity>
+          <Image
+            style={{height: 10, width: 15}}
+            source={constantImages.vector}
+          />
+        </TouchableOpacity>
+      </View>
       <TextInput
+        onPress={() => setShowCalendar(true)}
+        value={dob}
         style={styles.textInput}
         placeholder="Date of Birth *"></TextInput>
       <TextInput style={styles.textInput} placeholder="Location *"></TextInput>
@@ -280,6 +307,35 @@ const Main2 = () => {
         transparent={true}>
         <Pressable onPress={() => setGenderModalVisible(false)}>
           <View style={{backgroundColor: 'pink', flex: 1}}></View>
+        </Pressable>
+      </Modal>
+
+      <Modal
+        animationType="slide"
+        visible={showCalendar}
+        transparent={true}
+        style={{borderRadius: 30}}>
+        <Pressable onPress={() => setShowCalendar(false)}>
+          <Trial
+            selectedDate={setDob}
+            // style={{
+            //   borderWidth: 1,
+            //   borderColor: 'gray',
+            //   height: 350,
+            //   borderRadius: 13,
+            //   margin: 16,
+            // }}
+            // theme={{
+            //   backgroundColor: '#ffffff',
+            //   calendarBackground: '#ffffff',
+            //   textSectionTitleColor: '#b6c1cd',
+            //   selectedDayBackgroundColor: colors.primary,
+            //   selectedDayTextColor: 'black',
+            //   todayTextColor: '#00adf5',
+            //   dayTextColor: '#2d4150',
+            //   textDisabledColor: '#dd99ee',
+            // }}
+          />
         </Pressable>
       </Modal>
     </View>
