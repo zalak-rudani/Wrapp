@@ -1,0 +1,17 @@
+diff --git a/node_modules/react-native-paper/src/components/TextInput/TextInputFlat.tsx b/node_modules/react-native-paper/src/components/TextInput/TextInputFlat.tsx
+index fa2f873..01ba0c1 100644
+--- a/node_modules/react-native-paper/src/components/TextInput/TextInputFlat.tsx
++++ b/node_modules/react-native-paper/src/components/TextInput/TextInputFlat.tsx
+@@ -355,9 +355,9 @@ const TextInputFlat = ({
+         onLayout={onInputLayout}
+         style={[
+           styles.labelContainer,
+-          {
+-            minHeight,
+-          },
++          // {
++          //   minHeight,
++          // },
+         ]}
+       >
+         {!isAndroid && multiline && !!label && !disabled && (

@@ -25,10 +25,10 @@ const RootNavigator = () => {
         {/* <Stack.Screen name={'Onboarding'} component={Onboarding} /> */}
         {/* <Stack.Screen name={'SignUp'} component={SignUp} /> */}
         {/* <Stack.Screen name={'SignUpWithEmail'} component={SignUpWithEmail} /> */}
-        {/* <Stack.Screen name={'Main2'} component={Main2} /> */}
+        <Stack.Screen name={'Main2'} component={Main2} />
         {/* <Stack.Screen name={'fillLine'} component={fillLine} /> */}
         {/* <Stack.Screen name={'MainInfo'} component={MainInfo} /> */}
-        <Stack.Screen name={'ModalComp'} component={ModalComp} />
+        {/* <Stack.Screen name={'ModalComp'} component={ModalComp} /> */}
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -10,57 +10,39 @@ import {
 import {colors} from '../../helpers/ColorConstant';
 import React, {useState} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import ButtonLearn from './ButtonLearn';
 
-const ModalComp = ({data, onPress}) => {
-  const arr = ['hii', 'huh', 'yui'];
-  const [modalVisible, setModalVisible] = useState(false);
+const ModalComp = ({data, visible, onPress}) => {
+  // const arr = ['hi', 'ji', 'hu', 'hello'];
+  // const arr = [
+  //   {
+  //     title: 'hii',
+  //     onPress: () => {
+  //       console.log('=-=-=-=-=-hii');
+  //     },
+  //   },
+  //   {
+  //     title: 'huh',
+  //     onPress: () => {
+  //       console.log('===============huh');
+  //     },
+  //   },
+  // ];
+  // const [modalVisible, setModalVisible] = useState(false);
   return (
-    <SafeAreaView style={styles.main}>
-      <View
-        style={{
-          justifyContent: 'center',
-          alignSelf: 'center',
-          flex: 1,
-        }}>
-        <TouchableOpacity onPress={() => setModalVisible(true)}>
-          <Text>PRESS</Text>
-        </TouchableOpacity>
-      </View>
-
-      {/* <Modal visible={modalVisible} animationType="slide" transparent={true}>
-        <Pressable
-          onPress={() => setModalVisible(false)}
-          style={styles.modalCentred}>
-          <View style={styles.modalView}>
-            <FlatList
-              data={arr}
-              renderItem={({item}) => {
-                <TouchableOpacity onPress={onPress} style={styles.button}>
-                  <Text style={styles.text}>{item}</Text>
-                </TouchableOpacity>;
-              }}
-            />
-          </View>
-        </Pressable>
-      </Modal> */}
-
-      <Modal animationType="slide" transparent={true} visible={modalVisible}>
-        <Pressable
-          onPress={() => setModalVisible(false)}
-          style={styles.modalCentred}>
-          <View style={styles.modalView}>
-            <FlatList
-              data={arr}
-              renderItem={({item}) => {
-                <TouchableOpacity style={styles.button}>
-                  <Text style={styles.text}>{item}</Text>
-                </TouchableOpacity>;
-              }}
-            />
-          </View>
-        </Pressable>
-      </Modal>
-    </SafeAreaView>
+    <Modal animationType="slide" transparent={true} visible={visible}>
+      <Pressable onPress={onPress} style={styles.modalCentred}>
+        <FlatList
+          data={data}
+          style={styles.flatListStyle}
+          renderItem={({item}) => (
+            <View style={styles.button}>
+              <Text style={styles.text}>{item}</Text>
+            </View>
+          )}
+        />
+      </Pressable>
+    </Modal>
   );
 };
 
@@ -68,21 +50,25 @@ export default ModalComp;
 
 const styles = StyleSheet.create({
   main: {
-    flex: 1,
-    backgroundColor: colors.white,
+    // flex: 1,
+    // backgroundColor: colors.white,
   },
 
   button: {
-    width: 311,
+    flex: 1,
+    marginHorizontal: 16,
+    marginBottom: 16,
     height: 64,
     borderWidth: 1,
     borderRadius: 50,
     backgroundColor: colors.white,
+    justifyContent: 'center',
   },
 
   text: {
-    fontSize: 15,
     fontWeight: '700',
+    fontSize: 15,
+    textAlign: 'center',
   },
 
   modalCentred: {
@@ -91,10 +77,56 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
 
-  modalView: {
-    width: 388,
+  flatListStyle: {
+    flexGrow: 0,
+    paddingTop: 16,
     backgroundColor: 'white',
-    height: 500,
-    borderRadius: 20,
+    borderRadius: 16,
   },
 });
+
+{
+  /* <ButtonLearn arr={arr} /> */
+}
+{
+  /* <ButtonLearn arr={['hii', 'huh', 'sdf', 'sdf']} /> */
+}
+
+{
+  /* <Modal visible={modalVisible} animationType="slide" transparent={true}>
+  <Pressable
+  onPress={() => setModalVisible(false)}
+  style={styles.modalCentred}>
+  <View style={styles.modalView}>
+  <FlatList
+  data={arr}
+  renderItem={({item}) => {
+    <TouchableOpacity style={styles.button}>
+    <Text style={styles.text}>{item}</Text>
+                </TouchableOpacity>;
+              }}
+              />
+              </View>
+              </Pressable>
+              </Modal> */
+}
+
+// modalView: {
+//   backgroundColor: 'white',
+//   // height: 500,
+//   // flex: 1,
+//   borderRadius: 20,
+//   alignItems: 'center',
+// },
+{
+  /* <View
+  style={{
+    justifyContent: 'center',
+    alignSelf: 'center',
+    flex: 1,
+  }}>
+  <TouchableOpacity onPress={() => setModalVisible(true)}>
+    <Text>PRESS</Text>
+  </TouchableOpacity>
+</View> */
+}

@@ -5,14 +5,14 @@ import {
   Pressable,
   ScrollView,
   StyleSheet,
-  TextInput,
+  // TextInput,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
 import React, {useState} from 'react';
 import {colors} from '../../helpers/ColorConstant';
-// import {TextInput} from 'react-native-paper';
+import {TextInput} from 'react-native-paper';
 import ButtonComp from '../../components/common/ButtonComp';
 import FillLine from '../../components/common/FillLine';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
@@ -22,6 +22,7 @@ import constantImages from '../constants/constantImages';
 import {Item} from 'react-native-paper/lib/typescript/components/List/List';
 import {Calendar} from 'react-native-calendars';
 import Trial from './Trial';
+import ButtonLearn from '../../components/common/ButtonLearn';
 import Day from 'react-native-calendars/src/calendar/day';
 
 const Main2 = () => {
@@ -37,6 +38,17 @@ const Main2 = () => {
   const [insta, setInsta] = useState('');
   const [selectedData, setSelectedData] = useState('');
   const [showCalendar, setShowCalendar] = useState(false);
+
+  const data = [
+    'Trans Man',
+    'Trans Woman',
+    'Agender',
+    'Bigender',
+    'Gender Fluid',
+    'Genderqueer',
+    'Intersex',
+    'Third Gender',
+  ];
 
   console.log('**********', dob);
 
@@ -143,7 +155,6 @@ const Main2 = () => {
       <Text style={{...styles.bigText, fontSize: 21, marginBottom: 12}}>
         Add photo
       </Text>
-
       <ScrollView horizontal style={{flex: 1, flexDirection: 'row', gap: 10}}>
         <FlatList
           data={images}
@@ -185,8 +196,7 @@ const Main2 = () => {
           </View>
         ) : null}
       </ScrollView>
-
-      <TextInput
+      {/* <TextInput
         style={styles.textInput}
         placeholder="First name *"></TextInput>
       <TextInput style={styles.textInput} placeholder="Last name *"></TextInput>
@@ -215,40 +225,51 @@ const Main2 = () => {
         style={styles.textInput}
         placeholder="Date of Birth *"></TextInput>
       <TextInput style={styles.textInput} placeholder="Location *"></TextInput>
-      <TextInput style={styles.textInput} placeholder="Instagram"></TextInput>
-
-      {/* <ScrollView>
-        <TextInput
-          style={styles.textInput}
-          label={'First name *'}
-          onChangeText={text => setFName(text)}></TextInput>
-        <TextInput
-          style={styles.textInput}
-          label={'Last name *'}
-          onChangeText={text => setLName(text)}></TextInput>
-        <TextInput
-          style={styles.textInput}
-          label={'Gender *'}
-          onChangeText={text => setGender(text)}></TextInput>
-        <TextInput
-          style={styles.textInput}
-          label={'Date of Birth *'}
-          onChangeText={text => setDob(text)}></TextInput>
-        <TextInput
-          style={styles.textInput}
-          label={'Location *'}
-          onChangeText={text => setLocation(text)}></TextInput>
-        <TextInput
-          style={styles.textInput}
-          label={'Instagram'}
-          onChangeText={text => setInsta(text)}></TextInput>
-      </ScrollView> */}
+      <TextInput style={styles.textInput} placeholder="Instagram"></TextInput> */}
+      {/* <ScrollView style={{flex: 1}}> */}
+      <TextInput
+        style={styles.textInput}
+        label={'First name *'}
+        theme={{colors: {primary: 'black'}}}
+        onChangeText={text => setFName(text)}></TextInput>
+      <TextInput
+        style={styles.textInput}
+        theme={{colors: {primary: 'black'}}}
+        label={'Last name *'}
+        onChangeText={text => setLName(text)}></TextInput>
+      <TextInput
+        style={styles.textInput}
+        theme={{colors: {primary: 'black'}}}
+        label={'Gender *'}
+        // underlineColor={'transparent'}
+        // theme={{...theme, colors: {...colors, primary: 'transparent'}}}
+        onChangeText={text => setGender(text)}></TextInput>
+      <TextInput
+        onPress={() => setShowCalendar(true)}
+        value={dob}
+        theme={{colors: {primary: 'black'}}}
+        style={styles.textInput}
+        label="Date of Birth *"></TextInput>
+      <TextInput
+        style={styles.textInput}
+        theme={{colors: {primary: 'black'}}}
+        outlineStyle={{borderColor: 'transparent'}}
+        label={'Location *'}
+        onChangeText={text => setLocation(text)}></TextInput>
+      <TextInput
+        style={styles.textInput}
+        theme={{colors: {primary: 'black'}}}
+        underlineStyle={{color: 'red'}}
+        // contentStyle={{padding: 10}}
+        label={'Instagram'}
+        dense={true}
+        onChangeText={text => setInsta(text)}></TextInput>
+      {/* </ScrollView> */}
       <ButtonComp
         onPress={() => setGenderModalVisible(true)}
         text={'Continue'}
         customStyle={styles.Button}
       />
-
       <Modal animationType="slide" transparent={true} visible={modalVisible}>
         <Pressable onPress={() => setModalVisible(false)}>
           <View style={styles.modalView}>
@@ -256,7 +277,6 @@ const Main2 = () => {
           </View>
         </Pressable>
       </Modal>
-
       <Modal animationType="slide" transparent={true} visible={modal2Visible}>
         <Pressable onPress={() => setModal2Visible(false)}>
           <View style={{...styles.modalView, height: 380}}>
@@ -300,44 +320,62 @@ const Main2 = () => {
           </View>
         </Pressable>
       </Modal>
-
-      <Modal
+      {/* <Modal
         animationType="slide"
         visible={genderModalVisible}
         transparent={true}>
         <Pressable onPress={() => setGenderModalVisible(false)}>
           <View style={{backgroundColor: 'pink', flex: 1}}></View>
         </Pressable>
-      </Modal>
-
+      </Modal> */}
       <Modal
         animationType="slide"
         visible={showCalendar}
         transparent={true}
         style={{borderRadius: 30}}>
         <Pressable onPress={() => setShowCalendar(false)}>
-          <Trial
-            selectedDate={setDob}
-            // style={{
-            //   borderWidth: 1,
-            //   borderColor: 'gray',
-            //   height: 350,
-            //   borderRadius: 13,
-            //   margin: 16,
-            // }}
-            // theme={{
-            //   backgroundColor: '#ffffff',
-            //   calendarBackground: '#ffffff',
-            //   textSectionTitleColor: '#b6c1cd',
-            //   selectedDayBackgroundColor: colors.primary,
-            //   selectedDayTextColor: 'black',
-            //   todayTextColor: '#00adf5',
-            //   dayTextColor: '#2d4150',
-            //   textDisabledColor: '#dd99ee',
-            // }}
-          />
+          <Trial selectedDate={setDob} />
         </Pressable>
       </Modal>
+      /*{' '}
+      <Modal animationType="slide" transparent={true} visible={modalVisible}>
+        <Pressable onPress={() => setModalVisible(false)}>
+          <View style={styles.modalView}>
+            <ButtonComp
+              onPress={() => {
+                handleCameraLaunch();
+                setModalVisible(false);
+              }}
+              customStyle={{
+                ...styles.Button,
+                marginTop: 32,
+                marginBottom: 16,
+                backgroundColor: colors.white,
+                borderWidth: 1,
+              }}
+              text={'Take photo'}
+            />
+            <ButtonComp
+              onPress={() => {
+                openImagePicker();
+                setModalVisible(false);
+              }}
+              customStyle={{
+                ...styles.Button,
+                backgroundColor: colors.white,
+                borderWidth: 1,
+              }}
+              text={'Choose from library'}
+            />
+          </View>
+        </Pressable>
+      </Modal>
+      <ButtonLearn
+        visible={genderModalVisible}
+        data={data}
+        onPress={() => setGenderModalVisible(false)}
+      />
+      {console.log('-----------', data)}
     </View>
   );
 };
@@ -368,10 +406,9 @@ const styles = StyleSheet.create({
   // },
 
   textInput: {
+    backgroundColor: colors.white,
     marginBottom: 40,
-    marginLeft: 32,
-    marginRight: 32,
-    paddingBottom: 6,
+    marginHorizontal: 32,
     borderBottomWidth: 1,
   },
 
