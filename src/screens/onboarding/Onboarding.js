@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
 
   skip: {
     alignSelf: 'flex-end',
-    // justifyContent: 'flex-end',
+    alignItems: 'center',
     marginRight: 26,
     flexDirection: 'row',
   },

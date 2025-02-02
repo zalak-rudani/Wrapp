@@ -14,7 +14,7 @@ import {colors} from '../../helpers/ColorConstant';
 import constantImages from '../constants/constantImages';
 import ButtonComp from '../../components/common/ButtonComp';
 
-const SignUp = () => {
+const SignUp = props => {
   const [modalVisible, setModalVisible] = useState(false);
   return (
     <View style={styles.main}>
@@ -46,6 +46,7 @@ const SignUp = () => {
               source={constantImages.email}
               text={'Email'}
               customStyle={styles.signUpWithButton}
+              onPress={() => props.navigation.navigate('SignUpWithEmail')}
             />
 
             <ButtonComp
@@ -61,6 +62,7 @@ const SignUp = () => {
               customStyle={{
                 ...styles.signUpWithButton,
                 backgroundColor: colors.black,
+                // marginBottom: 32,
               }}
               textStyle={{
                 color: 'white',

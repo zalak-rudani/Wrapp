@@ -6,54 +6,63 @@ import {
   TouchableOpacity,
   View,
   Modal,
+  Image,
 } from 'react-native';
+import React from 'react';
 import {colors} from '../../helpers/ColorConstant';
-import React, {useState} from 'react';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import ButtonLearn from './ButtonLearn';
+import constantImages from '../../screens/constants/constantImages';
 
-const ModalComp = ({data, visible, onPress}) => {
-  // const arr = ['hi', 'ji', 'hu', 'hello'];
-  // const arr = [
-  //   {
-  //     title: 'hii',
-  //     onPress: () => {
-  //       console.log('=-=-=-=-=-hii');
-  //     },
-  //   },
-  //   {
-  //     title: 'huh',
-  //     onPress: () => {
-  //       console.log('===============huh');
-  //     },
-  //   },
-  // ];
-  // const [modalVisible, setModalVisible] = useState(false);
+const ButtonLearn = ({data, visible, onPress, backArrow, backArrowOnPress}) => {
   return (
-    <Modal animationType="slide" transparent={true} visible={visible}>
-      <Pressable onPress={onPress} style={styles.modalCentred}>
+    <Modal
+      animationType="slide"
+      visible={visible}
+      transparent={true}
+      style={{
+        flex: 1,
+      }}>
+      <Pressable
+        onPress={onPress}
+        style={{flex: 1, backgroundColor: '#00000090'}}></Pressable>
+
+      <View style={{borderRadius: 16}}>
         <FlatList
           data={data}
           style={styles.flatListStyle}
+          ListHeaderComponent={() => {
+            if (backArrow) {
+              return (
+                <TouchableOpacity onPress={backArrowOnPress}>
+                  <Image
+                    source={constantImages.vector}
+                    style={{
+                      height: 15,
+                      width: 8,
+                      margin: 5,
+                      marginTop: 32,
+                      marginLeft: 32,
+                      marginBottom: 24,
+                      // transform: [{rotate: '0deg'}],
+                    }}
+                  />
+                </TouchableOpacity>
+              );
+            }
+          }}
           renderItem={({item}) => (
-            <View style={styles.button}>
-              <Text style={styles.text}>{item}</Text>
-            </View>
+            <TouchableOpacity style={styles.button} onPress={item.onPress}>
+              <Text style={styles.text}>{item.title}</Text>
+            </TouchableOpacity>
           )}
         />
-      </Pressable>
+      </View>
     </Modal>
   );
 };
 
-export default ModalComp;
+export default ButtonLearn;
 
 const styles = StyleSheet.create({
-  main: {
-    // flex: 1,
-    // backgroundColor: colors.white,
-  },
-
   button: {
     flex: 1,
     marginHorizontal: 16,
@@ -70,63 +79,10 @@ const styles = StyleSheet.create({
     fontSize: 15,
     textAlign: 'center',
   },
-
-  modalCentred: {
-    flex: 1,
-    backgroundColor: '#00000090',
-    justifyContent: 'flex-end',
-  },
-
   flatListStyle: {
     flexGrow: 0,
+    // borderRadius: 50,
     paddingTop: 16,
     backgroundColor: 'white',
-    borderRadius: 16,
   },
 });
-
-{
-  /* <ButtonLearn arr={arr} /> */
-}
-{
-  /* <ButtonLearn arr={['hii', 'huh', 'sdf', 'sdf']} /> */
-}
-
-{
-  /* <Modal visible={modalVisible} animationType="slide" transparent={true}>
-  <Pressable
-  onPress={() => setModalVisible(false)}
-  style={styles.modalCentred}>
-  <View style={styles.modalView}>
-  <FlatList
-  data={arr}
-  renderItem={({item}) => {
-    <TouchableOpacity style={styles.button}>
-    <Text style={styles.text}>{item}</Text>
-                </TouchableOpacity>;
-              }}
-              />
-              </View>
-              </Pressable>
-              </Modal> */
-}
-
-// modalView: {
-//   backgroundColor: 'white',
-//   // height: 500,
-//   // flex: 1,
-//   borderRadius: 20,
-//   alignItems: 'center',
-// },
-{
-  /* <View
-  style={{
-    justifyContent: 'center',
-    alignSelf: 'center',
-    flex: 1,
-  }}>
-  <TouchableOpacity onPress={() => setModalVisible(true)}>
-    <Text>PRESS</Text>
-  </TouchableOpacity>
-</View> */
-}

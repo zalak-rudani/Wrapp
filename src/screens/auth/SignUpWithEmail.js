@@ -14,7 +14,7 @@ import FillLine from '../../components/common/FillLine';
 import constantImages from '../constants/constantImages';
 import {TextInput} from 'react-native-paper';
 
-const SignUpWithEmail = () => {
+const SignUpWithEmail = props => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -148,7 +148,10 @@ const SignUpWithEmail = () => {
         {passEr ? <Text style={styles.error}> unvalid</Text> : null}
       </View>
 
-      <ButtonComp text={'Continue'} customStyle={styles.Button}></ButtonComp>
+      <ButtonComp
+        text={'Continue'}
+        customStyle={styles.Button}
+        onPress={() => props.navigation.navigate('Main2')}></ButtonComp>
     </SafeAreaView>
   );
 };
