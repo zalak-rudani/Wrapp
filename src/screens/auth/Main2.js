@@ -10,6 +10,8 @@ import {
   TouchableOpacity,
   View,
   Modal,
+  Keyboard,
+  KeyboardAvoidingView,
 } from 'react-native';
 import React, {useState} from 'react';
 import {colors} from '../../helpers/ColorConstant';
@@ -38,17 +40,21 @@ const Main2 = props => {
 
   const choosePhotos = [
     {
-      title: 'take photo',
+      title: 'Take photo',
       onPress: () => {
-        handleCameraLaunch();
         setPhotoModalVisible(false);
+        setTimeout(() => {
+          handleCameraLaunch();
+        }, 400);
       },
     },
     {
-      title: 'select from gallery',
+      title: 'Select from gallery',
       onPress: () => {
-        openImagePicker();
         setPhotoModalVisible(false);
+        setTimeout(() => {
+          openImagePicker();
+        }, 400);
       },
     },
   ];
@@ -180,7 +186,6 @@ const Main2 = props => {
   const selectAsMain = () => {
     const main = images.filter(val => val !== selectedData);
     console.log('------------', selectedData);
-    // console.log(main);
     setImages([selectedData, ...main]);
     setSelectedData('');
   };
@@ -210,7 +215,7 @@ const Main2 = props => {
               return val;
             }
           });
-          console.log(',,,,,,,,,,,,,,,,', imageUri);
+          console.log(',,,,,,,,,,,,,', imageUri);
 
           setImages(replace);
         } else {
@@ -256,7 +261,10 @@ const Main2 = props => {
 
   return (
     <View style={styles.main}>
-      <FillLine filling={{width: 136}} />
+      <FillLine
+        filling={{width: 136}}
+        onPress={() => props.navigation.goBack()}
+      />
       <Text style={styles.bigText}>Enter main info</Text>
       <ScrollView style={{flex: 1}}>
         <Text style={{...styles.bigText, fontSize: 21, marginBottom: 12}}>
@@ -303,56 +311,62 @@ const Main2 = props => {
             </View>
           ) : null}
         </ScrollView>
-
-        <TextInput
-          style={styles.textInput}
-          label={'First name *'}
-          value={fName}
-          theme={{colors: {primary: 'black'}}}
-          onChangeText={text => setFName(text)}></TextInput>
-        <TextInput
-          style={styles.textInput}
-          theme={{colors: {primary: 'black'}}}
-          label={'Last name *'}
-          value={lName}
-          onChangeText={text => setLName(text)}></TextInput>
-        <TextInput
-          onPress={() => setGenderModalVisible(true)}
-          style={styles.textInput}
-          theme={{colors: {primary: 'black'}}}
-          label={'Gender *'}
-          value={gender}
-          // underlineColor={'transparent'}
-          // theme={{...theme, colors: {...colors, primary: 'transparent'}}}
-          onChangeText={text => setGender(text)}></TextInput>
-        <TextInput
-          onPress={() => setShowCalendar(true)}
-          value={dob}
-          theme={{colors: {primary: 'black'}}}
-          style={styles.textInput}
-          // editable={false}
-          label="Date of Birth *"></TextInput>
-        <TextInput
-          style={styles.textInput}
-          theme={{colors: {primary: 'black'}}}
-          outlineStyle={{borderColor: 'transparent'}}
-          label={'Location *'}
-          value={location}
-          onPress={() =>
-            props.navigation.navigate('Work', {
-              onConfirm: location => {
-                setLocation(location);
-              },
-            })
-          }></TextInput>
-        <TextInput
-          style={styles.textInput}
-          theme={{colors: {primary: 'black'}}}
-          underlineStyle={{color: 'red'}}
-          // contentStyle={{padding: 10}}
-          label={'Instagram'}
-          value={insta}
-          onChangeText={text => setInsta(text)}></TextInput>
+        <KeyboardAvoidingView behavior="padding" style={{flex: 1}}>
+          <TextInput
+            style={styles.textInput}
+            label={'First name *'}
+            value={fName}
+            theme={{colors: {primary: 'black'}}}
+            onChangeText={text => setFName(text)}
+          />
+          <TextInput
+            style={styles.textInput}
+            theme={{colors: {primary: 'black'}}}
+            label={'Last name *'}
+            value={lName}
+            onChangeText={text => setLName(text)}
+          />
+          <TextInput
+            onPress={() => setGenderModalVisible(true)}
+            style={styles.textInput}
+            theme={{colors: {primary: 'black'}}}
+            label={'Gender *'}
+            value={gender}
+            // underlineColor={'transparent'}
+            // theme={{...theme, colors: {...colors, primary: 'transparent'}}}
+            onChangeText={text => setGender(text)}
+          />
+          <TextInput
+            onPress={() => setShowCalendar(true)}
+            value={dob}
+            theme={{colors: {primary: 'black'}}}
+            style={styles.textInput}
+            // editable={false}
+            label="Date of Birth *"
+          />
+          <TextInput
+            style={styles.textInput}
+            theme={{colors: {primary: 'black'}}}
+            outlineStyle={{borderColor: 'transparent'}}
+            label={'Location *'}
+            value={location}
+            onPress={() =>
+              props.navigation.navigate('Work', {
+                onConfirm: location => {
+                  setLocation(location);
+                },
+              })
+            }
+          />
+          <TextInput
+            style={styles.textInput}
+            theme={{colors: {primary: 'black'}}}
+            underlineStyle={{color: 'red'}}
+            // contentStyle={{padding: 10}}
+            label={'Instagram'}
+            value={insta}
+            onChangeText={text => setInsta(text)}></TextInput>
+        </KeyboardAvoidingView>
       </ScrollView>
       <ButtonComp
         // onPress={() =>}
@@ -390,13 +404,17 @@ const Main2 = props => {
         animationType="slide"
         visible={showCalendar}
         transparent={true}
-        style={{borderRadius: 30}}>
-        <Cal
-          selectedDate={setDob}
-          onDayPress={() => {
-            setShowCalendar(false);
-          }}
-        />
+        style={{backgroundColor: 'red'}}>
+        <Pressable
+          onPress={() => setShowCalendar(false)}
+          style={{justifyContent: 'center', flex: 1}}>
+          <Cal
+            selectedDate={setDob}
+            onDayPress={() => {
+              setShowCalendar(false);
+            }}
+          />
+        </Pressable>
       </Modal>
     </View>
   );

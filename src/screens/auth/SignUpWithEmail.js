@@ -21,41 +21,32 @@ const SignUpWithEmail = props => {
   const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
   const [confirmPass, setConfirmPass] = useState('');
   const [passEr, setPassEr] = useState(false);
+  const [confirmPassEr, setConfirmPassEr] = useState(false);
   const [emailEr, setEmailEr] = useState(false);
-  const [suggestions, setSuggestions] = useState([]);
-  const [strength, setStrength] = useState('');
 
-  //   const validatePassword = input => {
-  //     let newSuggestions = [];
-  //     if (input.length < 8) {
-  //       newSuggestions.push('Password should be at least 8 characters long');
-  //     }
-  //     if (!/\d/.test(input)) {
-  //       newSuggestions.push('Add at least one number');
-  //     }
+  const confirmPassValidation = val => {
+    if (val.length === 0) {
+      setConfirmPassEr('Confirm password must be enter');
+    } else if (val !== password) {
+      setConfirmPassEr('Passwords do NOT match');
+    } else if (val === password) {
+      setConfirmPassEr('');
+    }
+  };
 
-  //     if (!/[A-Z]/.test(input) || !/[a-z]/.test(input)) {
-  //       newSuggestions.push('Include both upper and lower case letters');
-  //     }
+  const passValidation = val => {
+    let reg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
 
-  //     if (!/[^A-Za-z0-9]/.test(input)) {
-  //       newSuggestions.push('Include at least one special character');
-  //     }
-
-  //     setSuggestions(newSuggestions);
-
-  //     if (newSuggestions.length === 0) {
-  //       setStrength('Very Strong');
-  //     } else if (newSuggestions.length <= 1) {
-  //       setStrength('Strong');
-  //     } else if (newSuggestions.length <= 2) {
-  //       setStrength('Moderate');
-  //     } else if (newSuggestions.length <= 3) {
-  //       setStrength('Weak');
-  //     } else {
-  //       setStrength('Too Weak');
-  //     }
-  //   };
+    if (val.length === 0) {
+      setPassEr('password must be enter');
+    } else if (reg.test(val) === false) {
+      setPassEr(
+        'password must contain eight characters including one or more uppercase letter and one number or special character. ',
+      );
+    } else if (reg.test(val) === true) {
+      setPassEr('');
+    }
+  };
 
   const emailValidation = val => {
     let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
@@ -69,8 +60,8 @@ const SignUpWithEmail = props => {
     }
   };
   return (
-    <SafeAreaView style={styles.main}>
-      <FillLine />
+    <View style={styles.main}>
+      <FillLine onPress={() => props.navigation.goBack()} />
       <Text style={styles.bigText}>Sign up with email</Text>
 
       <View style={styles.viewBox}>
@@ -85,7 +76,8 @@ const SignUpWithEmail = props => {
           onChangeText={text => {
             setEmail(text);
             emailValidation(text);
-          }}></TextInput>
+          }}
+        />
 
         {emailEr ? <Text style={styles.error}>{emailEr}</Text> : null}
       </View>
@@ -97,12 +89,16 @@ const SignUpWithEmail = props => {
             label={'Password'}
             activeUnderlineColor="black"
             //   underlineColor="black"
+            //   placeholder="Password"
             //   dense={true}
             rippleColor="red"
             secureTextEntry={!passwordVisible}
-            //   placeholder="Password"
             value={password}
-            onChangeText={text => setPassword(text)}></TextInput>
+            onChangeText={text => {
+              setPassword(text);
+              passValidation(text);
+            }}
+          />
           <TouchableOpacity
             onPress={() => {
               setPasswordVisible(!passwordVisible);
@@ -110,10 +106,11 @@ const SignUpWithEmail = props => {
             <Image
               style={styles.image}
               source={
-                passwordVisible ? constantImages.hide : constantImages.unhide
+                passwordVisible ? constantImages.unhide : constantImages.hide
               }></Image>
           </TouchableOpacity>
         </View>
+        {passEr ? <Text style={styles.error}>{passEr}</Text> : null}
       </View>
       <View style={styles.viewBox}>
         <View style={styles.textInput}>
@@ -131,7 +128,11 @@ const SignUpWithEmail = props => {
               }
             }}
             value={confirmPass}
-            onChangeText={text => setConfirmPass(text)}></TextInput>
+            onChangeText={text => {
+              setConfirmPass(text);
+              confirmPassValidation(text);
+            }}
+          />
           <TouchableOpacity
             onPress={() => {
               setConfirmPasswordVisible(!confirmPasswordVisible);
@@ -140,19 +141,36 @@ const SignUpWithEmail = props => {
               style={styles.image}
               source={
                 confirmPasswordVisible
-                  ? constantImages.hide
-                  : constantImages.unhide
+                  ? constantImages.unhide
+                  : constantImages.hide
               }></Image>
           </TouchableOpacity>
         </View>
-        {passEr ? <Text style={styles.error}> unvalid</Text> : null}
+        {confirmPassEr ? (
+          <Text style={styles.error}>{confirmPassEr}</Text>
+        ) : null}
       </View>
 
       <ButtonComp
         text={'Continue'}
         customStyle={styles.Button}
-        onPress={() => props.navigation.navigate('Main2')}></ButtonComp>
-    </SafeAreaView>
+        onPress={() => {
+          if (emailEr || passEr || confirmPassEr) {
+            if (emailEr) {
+              setEmailEr(true);
+            }
+            if (passEr) {
+              setPassEr(true);
+            }
+            if (confirmPassEr) {
+              setConfirmPassEr(true);
+            }
+          } else {
+            props.navigation.navigate('Main2');
+          }
+        }}
+      />
+    </View>
   );
 };
 
@@ -200,7 +218,38 @@ const styles = StyleSheet.create({
   error: {
     color: 'red',
     fontSize: 12,
-    marginLeft: 32,
+    marginHorizontal: 32,
     marginTop: 2,
   },
 });
+// const validatePassword = input => {
+//   let newSuggestions = [];
+//   if (input.length < 8) {
+//     newSuggestions.push('Password should be at least 8 characters long');
+//   }
+//   if (!/\d/.test(input)) {
+//     newSuggestions.push('Add at least one number');
+//   }
+
+//   if (!/[A-Z]/.test(input) || !/[a-z]/.test(input)) {
+//     newSuggestions.push('Include both upper and lower case letters');
+//   }
+
+//   if (!/[^A-Za-z0-9]/.test(input)) {
+//     newSuggestions.push('Include at least one special character');
+//   }
+
+//   setSuggestions(newSuggestions);
+
+//   if (newSuggestions.length === 0) {
+//     setStrength('Very Strong');
+//   } else if (newSuggestions.length <= 1) {
+//     setStrength('Strong');
+//   } else if (newSuggestions.length <= 2) {
+//     setStrength('Moderate');
+//   } else if (newSuggestions.length <= 3) {
+//     setStrength('Weak');
+//   } else {
+//     setStrength('Too Weak');
+//   }
+// };

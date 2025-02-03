@@ -57,6 +57,7 @@ const Cal = ({selectedDate, onDayPress}) => {
         height: 350,
         borderRadius: 13,
         margin: 16,
+        justifyContent: 'center',
       }}
       theme={{
         backgroundColor: '#ffffff',

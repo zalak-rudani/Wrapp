@@ -9,7 +9,6 @@ import {
   Pressable,
 } from 'react-native';
 import React, {useState} from 'react';
-import {SafeAreaView} from 'react-native-safe-area-context';
 import {colors} from '../../helpers/ColorConstant';
 import constantImages from '../constants/constantImages';
 import ButtonComp from '../../components/common/ButtonComp';
@@ -46,7 +45,10 @@ const SignUp = props => {
               source={constantImages.email}
               text={'Email'}
               customStyle={styles.signUpWithButton}
-              onPress={() => props.navigation.navigate('SignUpWithEmail')}
+              onPress={() => {
+                setModalVisible(false);
+                props.navigation.navigate('SignUpWithEmail');
+              }}
             />
 
             <ButtonComp

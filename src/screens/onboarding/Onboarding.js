@@ -1,22 +1,22 @@
-import {
-  Image,
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
 import React, {useState} from 'react';
+import {
+  Text,
+  View,
+  Image,
+  StyleSheet,
+  SafeAreaView,
+  TouchableOpacity,
+} from 'react-native';
+
+import Swiper from 'react-native-swiper';
+
+import {colors} from '../../helpers/ColorConstant';
 import constantImages from '../constants/constantImages';
 import ButtonComp from '../../components/common/ButtonComp';
 import EmojiImageComp from '../../components/onboarding/EmojiImageComp';
-import {colors} from '../../helpers/ColorConstant';
-import Swiper from 'react-native-swiper';
 
 const Onboarding = props => {
   const [index, setIndex] = useState(0);
-
-  // console.log('hcgdjcu', index);
 
   return (
     <SafeAreaView style={styles.main}>
@@ -24,37 +24,8 @@ const Onboarding = props => {
         index={index}
         loop={false}
         onIndexChanged={setIndex}
-        dot={
-          <View
-            style={{
-              backgroundColor: 'lightgrey',
-              width: 6,
-              height: 6,
-              borderRadius: 4,
-              marginLeft: 3,
-              marginRight: 3,
-              marginTop: 3,
-              marginBottom: 3,
-              bottom: 330,
-              zIndex: 99,
-            }}
-          />
-        }
-        activeDot={
-          <View
-            style={{
-              backgroundColor: colors.black,
-              width: 17,
-              height: 6,
-              borderRadius: 4,
-              marginLeft: 3,
-              marginRight: 3,
-              marginTop: 3,
-              marginBottom: 3,
-              bottom: 330,
-            }}
-          />
-        }>
+        dot={<View style={styles.dot} />}
+        activeDot={<View style={styles.activeDot} />}>
         <View style={styles.main}>
           <View style={styles.main}>
             <TouchableOpacity
@@ -72,12 +43,12 @@ const Onboarding = props => {
               }
             </Text>
           </View>
-
+          {/* 
           <ButtonComp
             text={'Continue'}
             onPress={() => setIndex(1)}
             customStyle={{marginBottom: 52}}
-          />
+          /> */}
         </View>
 
         <View style={styles.main}>
@@ -100,12 +71,12 @@ const Onboarding = props => {
               }
             </Text>
           </View>
-
+          {/* 
           <ButtonComp
             text={'Continue'}
             onPress={() => setIndex(2)}
             customStyle={{marginBottom: 52}}
-          />
+          /> */}
         </View>
 
         <View style={styles.main}>
@@ -121,14 +92,19 @@ const Onboarding = props => {
               {'Kick off your experience \nby exploring the app'}
             </Text>
           </View>
-
+          {/* 
           <ButtonComp
             text={'Explore'}
             onPress={() => props.navigation.navigate('SignUp')}
             customStyle={{marginBottom: 52}}
-          />
+          /> */}
         </View>
       </Swiper>
+      <ButtonComp
+        text={'Continue'}
+        onPress={() => setIndex(1)}
+        customStyle={{marginBottom: 52}}
+      />
     </SafeAreaView>
   );
 };
@@ -174,5 +150,30 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: '700',
     marginRight: 10,
+  },
+
+  dot: {
+    backgroundColor: 'lightgrey',
+    width: 6,
+    height: 6,
+    borderRadius: 4,
+    marginLeft: 3,
+    marginRight: 3,
+    marginTop: 3,
+    marginBottom: 3,
+    bottom: 330,
+    zIndex: 99,
+  },
+
+  activeDot: {
+    backgroundColor: colors.black,
+    width: 17,
+    height: 6,
+    borderRadius: 4,
+    marginLeft: 3,
+    marginRight: 3,
+    marginTop: 3,
+    marginBottom: 3,
+    bottom: 330,
   },
 });

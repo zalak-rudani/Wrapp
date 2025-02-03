@@ -17,7 +17,7 @@ const Work = props => {
   const [country, setCountry] = useState('');
   const [city, setCity] = useState('');
 
-  console.log('**************', props);
+  console.log('**************', props.route.params);
 
   return (
     <SafeAreaView style={styles.main}>

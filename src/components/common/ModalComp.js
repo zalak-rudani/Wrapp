@@ -25,7 +25,7 @@ const ButtonLearn = ({data, visible, onPress, backArrow, backArrowOnPress}) => {
         onPress={onPress}
         style={{flex: 1, backgroundColor: '#00000090'}}></Pressable>
 
-      <View style={{borderRadius: 16}}>
+      <View style={{borderRadius: 30}}>
         <FlatList
           data={data}
           style={styles.flatListStyle}
@@ -33,18 +33,7 @@ const ButtonLearn = ({data, visible, onPress, backArrow, backArrowOnPress}) => {
             if (backArrow) {
               return (
                 <TouchableOpacity onPress={backArrowOnPress}>
-                  <Image
-                    source={constantImages.vector}
-                    style={{
-                      height: 15,
-                      width: 8,
-                      margin: 5,
-                      marginTop: 32,
-                      marginLeft: 32,
-                      marginBottom: 24,
-                      // transform: [{rotate: '0deg'}],
-                    }}
-                  />
+                  <Image source={constantImages.vector} style={styles.image} />
                 </TouchableOpacity>
               );
             }
@@ -81,8 +70,18 @@ const styles = StyleSheet.create({
   },
   flatListStyle: {
     flexGrow: 0,
-    // borderRadius: 50,
+    // borderRadius: 19,
     paddingTop: 16,
     backgroundColor: 'white',
+  },
+
+  image: {
+    height: 15,
+    width: 8,
+    margin: 5,
+    marginTop: 32,
+    marginLeft: 32,
+    marginBottom: 24,
+    // transform: [{rotate: '0deg'}],
   },
 });

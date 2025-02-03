@@ -4,10 +4,10 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {colors} from '../../helpers/ColorConstant';
 import constantImages from '../../screens/constants/constantImages';
 
-const FillLine = ({filling}) => {
+const FillLine = ({filling, onPress}) => {
   return (
     <SafeAreaView style={styles.main}>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={onPress}>
         <Image style={styles.vector} source={constantImages.vector} />
       </TouchableOpacity>
       <View style={styles.outer}>
