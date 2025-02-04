@@ -7,17 +7,16 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
+
+import {TextInput} from 'react-native-paper';
+
 import {colors} from '../../helpers/ColorConstant';
 import constantImages from '../constants/constantImages';
-import {Button, TextInput} from 'react-native-paper';
 import ButtonComp from '../../components/common/ButtonComp';
 
-// create a component
 const Work = props => {
   const [country, setCountry] = useState('');
   const [city, setCity] = useState('');
-
-  console.log('**************', props.route.params);
 
   return (
     <SafeAreaView style={styles.main}>
@@ -41,7 +40,6 @@ const Work = props => {
           value={city}
           onChangeText={text => setCity(text)}></TextInput>
       </View>
-
       <View style={styles.buttonView}>
         <ButtonComp
           customStyle={styles.button}
@@ -56,7 +54,6 @@ const Work = props => {
   );
 };
 
-// define your styles
 const styles = StyleSheet.create({
   main: {
     flex: 1,
@@ -93,10 +90,7 @@ const styles = StyleSheet.create({
   buttonView: {
     flex: 1,
     top: 361,
-    // justifyContent: 'flex-end',
-    // marginBottom: 56,
   },
 });
 
-//make this component available to the app
 export default Work;

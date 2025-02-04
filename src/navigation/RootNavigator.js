@@ -1,13 +1,15 @@
 import React from 'react';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+
 import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+
 import Oops from '../screens/oops/Oops';
+import Work from '../screens/auth/Work';
+import SignUp from '../screens/auth/SignUp';
+import MainInfo from '../screens/auth/MainInfo';
 import Explore from '../screens/explore/Explore';
 import Onboarding from '../screens/onboarding/Onboarding';
-import SignUp from '../screens/auth/SignUp';
 import SignUpWithEmail from '../screens/auth/SignUpWithEmail';
-import Main2 from '../screens/auth/Main2';
-import Work from '../screens/auth/Work';
 
 const Stack = createNativeStackNavigator();
 
@@ -20,7 +22,7 @@ const RootNavigator = () => {
         <Stack.Screen name={'Onboarding'} component={Onboarding} />
         <Stack.Screen name={'SignUp'} component={SignUp} />
         <Stack.Screen name={'SignUpWithEmail'} component={SignUpWithEmail} />
-        <Stack.Screen name={'Main2'} component={Main2} />
+        <Stack.Screen name={'MainInfo'} component={MainInfo} />
         <Stack.Screen name={'Work'} component={Work} />
       </Stack.Navigator>
     </NavigationContainer>

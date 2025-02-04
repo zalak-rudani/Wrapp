@@ -1,18 +1,13 @@
-import {
-  Image,
-  StyleSheet,
-  Text,
-  //TextInput,
-  TouchableOpacity,
-  View,
-} from 'react-native';
 import React, {useState} from 'react';
+import {View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native';
+
+import {TextInput} from 'react-native-paper';
+
 import {colors} from '../../helpers/ColorConstant';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import ButtonComp from '../../components/common/ButtonComp';
 import FillLine from '../../components/common/FillLine';
 import constantImages from '../constants/constantImages';
-import {TextInput} from 'react-native-paper';
+import ButtonComp from '../../components/common/ButtonComp';
+import {strings} from '../../helpers/StringConstant';
 
 const SignUpWithEmail = props => {
   const [email, setEmail] = useState('');
@@ -62,11 +57,10 @@ const SignUpWithEmail = props => {
   return (
     <View style={styles.main}>
       <FillLine onPress={() => props.navigation.goBack()} />
-      <Text style={styles.bigText}>Sign up with email</Text>
-
+      <Text style={styles.bigText}>{strings.head.signUpEmail}</Text>
       <View style={styles.viewBox}>
         <TextInput
-          label={'Email'}
+          label={strings.text.email}
           style={styles.textInput}
           activeUnderlineColor="black"
           keyboardType="email-address"
@@ -78,7 +72,6 @@ const SignUpWithEmail = props => {
             emailValidation(text);
           }}
         />
-
         {emailEr ? <Text style={styles.error}>{emailEr}</Text> : null}
       </View>
 
@@ -86,7 +79,7 @@ const SignUpWithEmail = props => {
         <View style={styles.textInput}>
           <TextInput
             style={{flex: 1, backgroundColor: colors.white}}
-            label={'Password'}
+            label={strings.text.pass}
             activeUnderlineColor="black"
             //   underlineColor="black"
             //   placeholder="Password"
@@ -112,11 +105,12 @@ const SignUpWithEmail = props => {
         </View>
         {passEr ? <Text style={styles.error}>{passEr}</Text> : null}
       </View>
+
       <View style={styles.viewBox}>
         <View style={styles.textInput}>
           <TextInput
             style={{flex: 1, backgroundColor: colors.white}}
-            label={'Confirm Password'}
+            label={strings.text.confirmPass}
             activeUnderlineColor="black"
             secureTextEntry={!confirmPasswordVisible}
             //   placeholder="Confirm Password"
@@ -166,7 +160,7 @@ const SignUpWithEmail = props => {
               setConfirmPassEr(true);
             }
           } else {
-            props.navigation.navigate('Main2');
+            props.navigation.navigate('MainInfo');
           }
         }}
       />
@@ -196,6 +190,7 @@ const styles = StyleSheet.create({
     // borderBottomWidth: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
     backgroundColor: colors.white,
   },
 
@@ -222,34 +217,3 @@ const styles = StyleSheet.create({
     marginTop: 2,
   },
 });
-// const validatePassword = input => {
-//   let newSuggestions = [];
-//   if (input.length < 8) {
-//     newSuggestions.push('Password should be at least 8 characters long');
-//   }
-//   if (!/\d/.test(input)) {
-//     newSuggestions.push('Add at least one number');
-//   }
-
-//   if (!/[A-Z]/.test(input) || !/[a-z]/.test(input)) {
-//     newSuggestions.push('Include both upper and lower case letters');
-//   }
-
-//   if (!/[^A-Za-z0-9]/.test(input)) {
-//     newSuggestions.push('Include at least one special character');
-//   }
-
-//   setSuggestions(newSuggestions);
-
-//   if (newSuggestions.length === 0) {
-//     setStrength('Very Strong');
-//   } else if (newSuggestions.length <= 1) {
-//     setStrength('Strong');
-//   } else if (newSuggestions.length <= 2) {
-//     setStrength('Moderate');
-//   } else if (newSuggestions.length <= 3) {
-//     setStrength('Weak');
-//   } else {
-//     setStrength('Too Weak');
-//   }
-// };

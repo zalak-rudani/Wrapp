@@ -1,9 +1,11 @@
-import {Image, SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
+import {Text, View, StyleSheet, SafeAreaView} from 'react-native';
+
+import {colors} from '../../helpers/ColorConstant';
+import {strings} from '../../helpers/StringConstant';
 import constantImages from '../constants/constantImages';
 import ButtonComp from '../../components/common/ButtonComp';
 import EmojiImageComp from '../../components/onboarding/EmojiImageComp';
-import {colors} from '../../helpers/ColorConstant';
 
 const Explore = props => {
   return (
@@ -11,14 +13,12 @@ const Explore = props => {
       <View style={styles.main}>
         <EmojiImageComp source={constantImages.oneGogglesEmoji} />
 
-        <Text style={styles.headText}>Explore locally</Text>
-        <Text style={styles.paragraph}>
-          {'Wrapp is currently only available \n in Italy and Spain.'}
-        </Text>
+        <Text style={styles.headText}>{strings.head.explore}</Text>
+        <Text style={styles.paragraph}>{strings.paragraph.explore}</Text>
       </View>
 
       <ButtonComp
-        text={'Explore'}
+        text={strings.button.explore}
         customStyle={{marginBottom: 52}}
         onPress={() => props.navigation.navigate('Onboarding')}
       />

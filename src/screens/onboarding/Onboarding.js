@@ -11,6 +11,7 @@ import {
 import Swiper from 'react-native-swiper';
 
 import {colors} from '../../helpers/ColorConstant';
+import {strings} from '../../helpers/StringConstant';
 import constantImages from '../constants/constantImages';
 import ButtonComp from '../../components/common/ButtonComp';
 import EmojiImageComp from '../../components/onboarding/EmojiImageComp';
@@ -18,8 +19,26 @@ import EmojiImageComp from '../../components/onboarding/EmojiImageComp';
 const Onboarding = props => {
   const [index, setIndex] = useState(0);
 
+  const changeIndex = () => {
+    if (index == 0) {
+      setIndex(1);
+    }
+    if (index == 1) {
+      setIndex(2);
+    }
+  };
+
   return (
     <SafeAreaView style={styles.main}>
+      {index < 2 && (
+        <TouchableOpacity
+          style={styles.skip}
+          onPress={() => props.navigation.navigate('SignUp')}>
+          <Text style={styles.skipText}>{strings.other.skip}</Text>
+          <Image style={styles.arrow} source={constantImages.arrow} />
+        </TouchableOpacity>
+      )}
+
       <Swiper
         index={index}
         loop={false}
@@ -28,83 +47,56 @@ const Onboarding = props => {
         activeDot={<View style={styles.activeDot} />}>
         <View style={styles.main}>
           <View style={styles.main}>
-            <TouchableOpacity
-              style={styles.skip}
-              onPress={() => props.navigation.navigate('SignUp')}>
-              <Text style={styles.skipText}> Skip </Text>
-              <Image style={styles.arrow} source={constantImages.arrow} />
-            </TouchableOpacity>
             <EmojiImageComp source={constantImages.starEye} />
 
-            <Text style={styles.headText}>Make new friends</Text>
+            <Text style={styles.headText}>{strings.head.onBoarding1}</Text>
             <Text style={styles.paragraph}>
-              {
-                'Wrapp helps you truly connect with cool \npeople in your area that share the same \ninterests as you'
-              }
+              {strings.paragraph.onBoarding1}
             </Text>
           </View>
-          {/* 
-          <ButtonComp
-            text={'Continue'}
-            onPress={() => setIndex(1)}
-            customStyle={{marginBottom: 52}}
-          /> */}
         </View>
 
         <View style={styles.main}>
           <View style={styles.main}>
-            <TouchableOpacity
-              style={styles.skip}
-              onPress={() => props.navigation.navigate('SignUp')}>
-              <Text style={styles.skipText}> Skip </Text>
-              <Image style={styles.arrow} source={constantImages.arrow} />
-            </TouchableOpacity>
             <EmojiImageComp
               source={constantImages.bdayFace}
               backgroundColor={{backgroundColor: colors.lightYellow}}
             />
-
-            <Text style={styles.headText}>Find new events</Text>
+            <Text style={styles.headText}>{strings.head.onBoarding2}</Text>
             <Text style={styles.paragraph}>
-              {
-                'Wrapp up your week with a fun event \nin your area or even create your own!'
-              }
+              {strings.paragraph.onBoarding2}
             </Text>
           </View>
-          {/* 
-          <ButtonComp
-            text={'Continue'}
-            onPress={() => setIndex(2)}
-            customStyle={{marginBottom: 52}}
-          /> */}
         </View>
 
         <View style={styles.main}>
           <View style={styles.main}>
             <EmojiImageComp
               source={constantImages.heartFace}
-              backgroundColor={{backgroundColor: '#E9E6FC'}}
+              backgroundColor={{backgroundColor: colors.lightPurpule}}
               customStyle={{marginTop: 110}}
             />
-
-            <Text style={styles.headText}>Let's begin!</Text>
+            <Text style={styles.headText}>{strings.head.onBoarding3}</Text>
             <Text style={styles.paragraph}>
-              {'Kick off your experience \nby exploring the app'}
+              {strings.paragraph.onBoarding3}
             </Text>
           </View>
-          {/* 
-          <ButtonComp
-            text={'Explore'}
-            onPress={() => props.navigation.navigate('SignUp')}
-            customStyle={{marginBottom: 52}}
-          /> */}
         </View>
       </Swiper>
-      <ButtonComp
-        text={'Continue'}
-        onPress={() => setIndex(1)}
-        customStyle={{marginBottom: 52}}
-      />
+
+      {index < 2 ? (
+        <ButtonComp
+          text={strings.button.continue}
+          onPress={() => changeIndex()}
+          customStyle={{marginBottom: 52}}
+        />
+      ) : (
+        <ButtonComp
+          text={strings.button.explore}
+          onPress={() => props.navigation.navigate('SignUp')}
+          customStyle={{marginBottom: 52}}
+        />
+      )}
     </SafeAreaView>
   );
 };
@@ -161,7 +153,7 @@ const styles = StyleSheet.create({
     marginRight: 3,
     marginTop: 3,
     marginBottom: 3,
-    bottom: 330,
+    bottom: 200,
     zIndex: 99,
   },
 
@@ -174,6 +166,6 @@ const styles = StyleSheet.create({
     marginRight: 3,
     marginTop: 3,
     marginBottom: 3,
-    bottom: 330,
+    bottom: 200,
   },
 });

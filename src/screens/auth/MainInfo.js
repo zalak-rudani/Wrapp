@@ -1,42 +1,42 @@
+import React, {useState} from 'react';
 import {
+  Text,
+  View,
+  Modal,
   Alert,
-  FlatList,
   Image,
+  FlatList,
   Pressable,
   ScrollView,
   StyleSheet,
-  // TextInput,
-  Text,
   TouchableOpacity,
-  View,
-  Modal,
-  Keyboard,
   KeyboardAvoidingView,
 } from 'react-native';
-import React, {useState} from 'react';
-import {colors} from '../../helpers/ColorConstant';
-import {TextInput} from 'react-native-paper';
-import ButtonComp from '../../components/common/ButtonComp';
-import FillLine from '../../components/common/FillLine';
-import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
-import Cal from './Cal';
-import ModalComp from '../../components/common/ModalComp';
 
-const Main2 = props => {
-  const [images, setImages] = useState([]);
-  const [photoModalVisible, setPhotoModalVisible] = useState(false);
-  const [photoEditModalVisible, setPhotoEditModalVisible] = useState(false);
-  const [genderModalVisible, setGenderModalVisible] = useState(false);
-  const [otherGenderModalVisible, setOtherGenderModalVisible] = useState(false);
-  const [showCalendar, setShowCalendar] = useState(false);
+import {TextInput} from 'react-native-paper';
+import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+
+import Cal from './Cal';
+import {colors} from '../../helpers/ColorConstant';
+import {strings} from '../../helpers/StringConstant';
+import FillLine from '../../components/common/FillLine';
+import ModalComp from '../../components/common/ModalComp';
+import ButtonComp from '../../components/common/ButtonComp';
+
+const MainInfo = props => {
+  const [dob, setDob] = useState('');
   const [fName, setFName] = useState('');
   const [lName, setLName] = useState('');
-  const [gender, setGender] = useState('');
-  const [dob, setDob] = useState('');
-  const [location, setLocation] = useState('');
   const [insta, setInsta] = useState('');
+  const [gender, setGender] = useState('');
+  const [images, setImages] = useState([]);
+  const [location, setLocation] = useState('');
   const [selectedData, setSelectedData] = useState('');
-  // console.log('**********', dob);
+  const [showCalendar, setShowCalendar] = useState(false);
+  const [photoModalVisible, setPhotoModalVisible] = useState(false);
+  const [genderModalVisible, setGenderModalVisible] = useState(false);
+  const [photoEditModalVisible, setPhotoEditModalVisible] = useState(false);
+  const [otherGenderModalVisible, setOtherGenderModalVisible] = useState(false);
 
   const choosePhotos = [
     {
@@ -176,7 +176,6 @@ const Main2 = props => {
         text: 'Yes',
         onPress: () => {
           const filterData = images.filter(val => val !== item);
-          console.log('===========', item);
 
           setImages(filterData);
         },
@@ -185,7 +184,6 @@ const Main2 = props => {
 
   const selectAsMain = () => {
     const main = images.filter(val => val !== selectedData);
-    console.log('------------', selectedData);
     setImages([selectedData, ...main]);
     setSelectedData('');
   };
@@ -209,13 +207,11 @@ const Main2 = props => {
         if (selectedData) {
           const replace = images.map(val => {
             if (val === selectedData) {
-              console.log('-=-=-=-****', val);
               return imageUri;
             } else {
               return val;
             }
           });
-          console.log(',,,,,,,,,,,,,', imageUri);
 
           setImages(replace);
         } else {
@@ -243,13 +239,11 @@ const Main2 = props => {
         if (selectedData) {
           const replace = images.map(val => {
             if (val === selectedData) {
-              console.log('-=-=-=-****', val);
               return imageUri;
             } else {
               return val;
             }
           });
-          console.log(',,,,,,,,,,,,,,,,', imageUri);
 
           setImages(replace);
         } else {
@@ -265,10 +259,10 @@ const Main2 = props => {
         filling={{width: 136}}
         onPress={() => props.navigation.goBack()}
       />
-      <Text style={styles.bigText}>Enter main info</Text>
+      <Text style={styles.bigText}>{strings.head.mainInfo}</Text>
       <ScrollView style={{flex: 1}}>
         <Text style={{...styles.bigText, fontSize: 21, marginBottom: 12}}>
-          Add photo
+          {strings.subHead.mainInfo}
         </Text>
         <ScrollView horizontal style={{flex: 1, flexDirection: 'row', gap: 10}}>
           <FlatList
@@ -281,7 +275,6 @@ const Main2 = props => {
                   onPress={() => {
                     setPhotoEditModalVisible(true);
                     setPhotoModalVisible(false);
-                    console.log('**************', item);
                     setSelectedData(item);
                   }}>
                   <Image
@@ -370,7 +363,7 @@ const Main2 = props => {
       </ScrollView>
       <ButtonComp
         // onPress={() =>}
-        text={'Continue'}
+        text={strings.button.continue}
         customStyle={styles.Button}
       />
       <ModalComp
@@ -407,7 +400,10 @@ const Main2 = props => {
         style={{backgroundColor: 'red'}}>
         <Pressable
           onPress={() => setShowCalendar(false)}
-          style={{justifyContent: 'center', flex: 1}}>
+          style={{
+            justifyContent: 'center',
+            flex: 1,
+          }}>
           <Cal
             selectedDate={setDob}
             onDayPress={() => {
@@ -420,7 +416,7 @@ const Main2 = props => {
   );
 };
 
-export default Main2;
+export default MainInfo;
 
 const styles = StyleSheet.create({
   main: {
@@ -435,16 +431,6 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
 
-  // textInput: {
-  //   // marginBottom: 40,
-  //   marginLeft: 32,
-  //   marginRight: 32,
-  //   paddingBottom: 6,
-  //   borderBottomWidth: 1,
-  //   flex: 1,
-  //   backgroundColor: colors.white,
-  // },
-
   textInput: {
     backgroundColor: colors.white,
     marginBottom: 40,
@@ -455,7 +441,6 @@ const styles = StyleSheet.create({
   Button: {
     width: 311,
     height: 64,
-    // marginTop: 40,
     marginBottom: 24,
   },
   box: {
@@ -465,7 +450,7 @@ const styles = StyleSheet.create({
     marginLeft: 16,
     marginBottom: 40,
     borderStyle: 'dashed',
-    borderColor: '#C4C4C4',
+    borderColor: colors.lightGray,
     borderRadius: 12,
     flexDirection: 'row',
     justifyContent: 'center',
@@ -511,167 +496,3 @@ const styles = StyleSheet.create({
     width: 311,
   },
 });
-
-{
-  /* <Modal animationType="slide" transparent={true} visible={photoModalVisible}>
-        <Pressable onPress={() => setPhotoModalVisible(false)}>
-          <View style={styles.modalView}>
-            <ButtonComp
-              onPress={() => {
-                handleCameraLaunch();
-                setPhotoModalVisible(false);
-              }}
-              customStyle={{
-                ...styles.Button,
-                marginTop: 32,
-                marginBottom: 16,
-                backgroundColor: colors.white,
-                borderWidth: 1,
-              }}
-              text={'Take photo'}
-            />
-            <ButtonComp
-              onPress={() => {
-                openImagePicker();
-                setPhotoModalVisible(false);
-              }}
-              customStyle={{
-                ...styles.Button,
-                backgroundColor: colors.white,
-                borderWidth: 1,
-              }}
-              text={'Choose from library'}
-            />
-          </View>
-        </Pressable>
-      </Modal> */
-}
-{
-  /* <TextInput
-        style={styles.textInput}
-        placeholder="First name *"></TextInput>
-      <TextInput style={styles.textInput} placeholder="Last name *"></TextInput>
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          marginBottom: 40,
-          marginLeft: 32,
-          marginRight: 32,
-          paddingBottom: 6,
-          borderBottomWidth: 1,
-        }}>
-        <TextInput placeholder="Gender *"></TextInput>
-        <TouchableOpacity>
-          <Image
-            style={{height: 10, width: 15}}
-            source={constantImages.vector}
-          />
-        </TouchableOpacity>
-      </View>
-      <TextInput
-        onPress={() => setShowCalendar(true)}
-        value={dob}
-        style={styles.textInput}
-        placeholder="Date of Birth *"></TextInput>
-      <TextInput style={styles.textInput} placeholder="Location *"></TextInput>
-      <TextInput style={styles.textInput} placeholder="Instagram"></TextInput> */
-}
-
-//modal comp
-
-/* <Modal animationType="slide" transparent={true} visible={photoModalVisible}>
-        <Pressable onPress={() => setPhotoModalVisible(false)}>
-          <View style={styles.modalView}>
-            <ModalComp data={arr} />
-          </View>
-        </Pressable>
-      </Modal>
-
-      
-      <Modal animationType="slide" transparent={true} visible={photoEditModalVisible}>
-        <Pressable onPress={() => setPhotoEditModalVisible(false)}>
-          <View style={{...styles.modalView, height: 380}}>
-            <ButtonComp
-              onPress={() => selectAsMain()}
-              customStyle={{
-                ...styles.Button,
-                marginTop: 32,
-                marginBottom: 16,
-                backgroundColor: colors.white,
-                borderWidth: 1,
-              }}
-              text={'Select as main'}
-            />
-            <ButtonComp
-              onPress={() => {
-                setPhotoModalVisible(true);
-                setPhotoEditModalVisible(false);
-              }}
-              customStyle={{
-                ...styles.Button,
-                backgroundColor: colors.white,
-                borderWidth: 1,
-                marginBottom: 16,
-              }}
-              text={'Replace'}
-            />
-
-            <ButtonComp
-              onPress={item => {
-                deleteConformation(selectedData);
-                setPhotoEditModalVisible(false);
-              }}
-              customStyle={{
-                ...styles.Button,
-                backgroundColor: colors.white,
-                borderWidth: 1,
-              }}
-              text={'Delete'}
-            />
-          </View>
-        </Pressable>
-      </Modal>
-      <Modal
-        animationType="slide"
-        visible={showCalendar}
-        transparent={true}
-        style={{borderRadius: 30}}>
-        <Pressable onPress={() => setShowCalendar(false)}>
-          <Calendar selectedDate={setDob} />
-        </Pressable>
-      </Modal> */
-/*{' '}
-      <Modal animationType="slide" transparent={true} visible={photoModalVisible}>
-        <Pressable onPress={() => setPhotoModalVisible(false)}>
-          <View style={styles.modalView}>
-            <ButtonComp
-              onPress={() => {
-                handleCameraLaunch();
-                setPhotoModalVisible(false);
-              }}
-              customStyle={{
-                ...styles.Button,
-                marginTop: 32,
-                marginBottom: 16,
-                backgroundColor: colors.white,
-                borderWidth: 1,
-              }}
-              text={'Take photo'}
-            />
-            <ButtonComp
-              onPress={() => {
-                openImagePicker();
-                setPhotoModalVisible(false);
-              }}
-              customStyle={{
-                ...styles.Button,
-                backgroundColor: colors.white,
-                borderWidth: 1,
-              }}
-              text={'Choose from library'}
-            />
-          </View>
-        </Pressable>
-      </Modal>*/

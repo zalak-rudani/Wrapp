@@ -1,31 +1,28 @@
-import {Image, SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
+import {Text, View, StyleSheet, SafeAreaView} from 'react-native';
+
+import {colors} from '../../helpers/ColorConstant';
+import {strings} from '../../helpers/StringConstant';
 import constantImages from '../constants/constantImages';
 import ButtonComp from '../../components/common/ButtonComp';
 import EmojiImageComp from '../../components/onboarding/EmojiImageComp';
-import {colors} from '../../helpers/ColorConstant';
-// import constantImages from '../constants/image';
 
 const Oops = props => {
   return (
     <SafeAreaView style={styles.main}>
       <View style={styles.main}>
         <EmojiImageComp source={constantImages.lady} />
-
-        <Text style={styles.headText}>Oops!</Text>
+        <Text style={styles.headText}>{strings.head.oops}</Text>
         <Text style={styles.paragraph}>
-          <Text>
-            {
-              'You’ve encountered an issue. Try refreshing \n the page, and if this error persists, please \ncontact us at '
-            }
+          <Text>{strings.paragraph.oops}</Text>
+          <Text style={{color: colors.primary}}>
+            {strings.paragraph.oopsEmail}
           </Text>
-          <Text style={{color: '#FAA8D1'}}>hello@wrapp.co</Text>
-          <Text>{' and we’ll get\n back to you ASAP!'}</Text>
+          <Text>{strings.paragraph.oops2}</Text>
         </Text>
       </View>
-
       <ButtonComp
-        text={'Try again'}
+        text={strings.button.tryAgain}
         onPress={() => props.navigation.navigate('Explore')}
         customStyle={{marginBottom: 52}}
       />

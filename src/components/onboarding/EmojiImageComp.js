@@ -1,5 +1,7 @@
-import {StyleSheet, Image, View} from 'react-native';
 import React from 'react';
+import {StyleSheet, Image, View} from 'react-native';
+
+import {colors} from '../../helpers/ColorConstant';
 
 const EmojiImageComp = ({source, backgroundColor, customStyle}) => {
   return (
@@ -15,7 +17,7 @@ const styles = StyleSheet.create({
   round: {
     height: 262,
     width: 262,
-    backgroundColor: '#FCE6E9',
+    backgroundColor: colors.lightPink,
     marginTop: 91,
     borderRadius: 131,
     alignSelf: 'center',
@@ -26,7 +28,5 @@ const styles = StyleSheet.create({
     height: 113,
     alignSelf: 'center',
     marginTop: 71,
-    // shadowOpacity:50,
-    // shadowColor:'red'
   },
 });

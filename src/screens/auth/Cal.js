@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
+
 import {Calendar, LocaleConfig} from 'react-native-calendars';
+
 import {colors} from '../../helpers/ColorConstant';
 
 LocaleConfig.locales['fr'] = {
@@ -60,14 +62,14 @@ const Cal = ({selectedDate, onDayPress}) => {
         justifyContent: 'center',
       }}
       theme={{
-        backgroundColor: '#ffffff',
-        calendarBackground: '#ffffff',
-        textSectionTitleColor: '#b6c1cd',
+        backgroundColor: colors.offWhite,
+        calendarBackground: colors.offWhite,
+        textSectionTitleColor: colors.gray,
         selectedDayBackgroundColor: colors.primary,
-        selectedDayTextColor: '#ffffff',
-        todayTextColor: '#00adf5',
-        dayTextColor: '#2d4150',
-        textDisabledColor: '#dd99ee',
+        selectedDayTextColor: colors.offWhite,
+        todayTextColor: colors.blue,
+        dayTextColor: colors.darkGray,
+        textDisabledColor: colors.pink,
       }}
       onDayPress={day => {
         setSelected(day.dateString);
